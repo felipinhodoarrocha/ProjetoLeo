@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:include src="menu.xhtml"/>    
+        <h:form id = "formulario">
+            <p:messages/>
+            <!--Mostra todas as mensagens do requiredMessage-->
+            <!--//requiredMessage Serve para deixar o text obrigatorio
+                    //Message Mostra a mensage do RequiredMessage
+                    //Para aparecer a mensagem precisa do Update no "Sim"-->
+            <p:fieldset legend ="Alterar Disco #{alunoController.selectedAluno.nome}">
+                <p:panelGrid columns="3">
+                    <h:outputText value ="Nome*"/>
+                    <p:inputText id ="inNome" value ="#{alunoController.selectedAluno.nome}" required="true" 
+                                 requiredMessage="O Nome é Obrigatorio!"/>
+                    <p:message for="inNome"/>
+                                 
+                    <h:outputText value ="matricula*"/>
+                    <p:inputText id ="inBanda" value ="#{alunoController.selectedAluno.matrícula}" required="true"
+                                 requiredMessage="A Banda é Obrigatorio!"/>
+                    <p:message for="inBanda"/>
+                                 
+                    <h:outputText value ="senha*"/>
+                    <p:inputText id="inMusicas" value ="#{alunoController.selectedAluno.senha}" required="true"
+                                 requiredMessage="As Musicas são Obrigatorias!"/>
+                    <p:message for="inMusicas"/>                                                  
+                </p:panelGrid>
+                <p:commandButton value ="Alterar" oncomplete="PF('widDial').show()"/>
+                
+            </p:fieldset>
+            <p:dialog id ="dial" resizable ="false" visible ="false" modal ="true" widgetVar="widDial">
+                 
+                <f:facet name="header">Atenção!!</f:facet>
+            <h:outputText value ="Deseja Realmente Alterar o Disco ?"/><br/>
+            <p:commandButton value="Sim" oncomplete="PF('widDial').hide()" action ="#{alunoController.alterar(alunoController.selectedAluno)}"
+                             update="formulario"/>
+            <p:commandButton value="Não" oncomplete="PF('widDial').hide()"/>
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>

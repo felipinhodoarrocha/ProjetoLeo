@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    
+    <h:body>    
+       <ui:include src="Menu.xhtml"/>      
+       <h:form id ="formAluno">
+            <p:messages/>
+            <p:fieldset legend="Cadastro de demonios" style="width: 50%">
+            <p:panelGrid columns="5"> 
+                
+                <h:outputText value="Matricula*:"/>
+                <p:inputText id="txtMatricula" value="#{bAluno.matricula}" required="true" requiredMessage="Campo obrigatório"/>
+                <p:message for="txtMatricula"/>
+                
+                <h:outputText value="Nome*:"/>
+                <p:inputText id="txtNome" value="#{bAluno.nome}" required="true" requiredMessage="Campo obrigatório"/>
+                <p:message for="txtNome"/>
+                
+                <h:outputText value="Email*:"/>
+                <p:inputText id="txtEmail" value="#{bAluno.email}" required="true" requiredMessage="Campo obrigatório"/>
+                <p:message for="txtEmail"/>
+                
+                <h:outputText value="Senha*:"/>
+                <p:inputText id="txtSenha" value="#{bAluno.senha}" required="true" requiredMessage="Campo obrigatório"/>
+                <p:message for="txtSenha"/>
+                
+            </p:panelGrid> 
+            <p:commandButton value="Cadastrar" oncomplete="PF('painel').show()"/>
+            
+        </p:fieldset>
+            <p:dialog id="dial" resizable="false" visible="false" modal="true" 
+                      showEffect="bounce" hideEffect="explode" widgetVar="painel">
+                <f:facet name="header">Atenção</f:facet>
+                <h:outputText value="Você deseja realmente cadastrar este inocente no inferno"/>
+                <f:facet name="footer">
+                    
+                    <p:commandButton value="sim" action="#{alunoController.inserir(bAluno.buildAluno)}"
+                                     oncomplete="PF('painel').hide()" update = "formAluno"/>
+                    
+                     <p:commandButton value="não" oncomplete="PF('painel').hide()"/>
+          
+                </f:facet>
+            </p:dialog>  
+        </h:form>
+    </h:body>
+   
+</html>
